@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
@@ -11,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background-color: rgb(19, 19, 19);
 }
 
 main {
@@ -29,8 +31,9 @@ main {
     top: 0;
     left: 0;
     font-weight: bolder;
+    font-size: larger;
     text-transform: uppercase;
-    color: white;
+    color: rgb(255, 255, 255);
     text-shadow: -1px 1px black;
 }
 
@@ -81,6 +84,7 @@ main {
     left: 20%;
     transform: translateY(-100%);
     height: 2rem;
+    z-index: 5;
     aspect-ratio: 92/64;
     border-radius: 50% 50% 40% 50%;
     background: url('./images/bird.png') no-repeat center;
@@ -151,14 +155,25 @@ main {
     }
 }
 
-.playPause {
+.restart {
     position: absolute;
-    top: 20px;
-    right: -20px;
-    width: 5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 10rem;
     z-index: 10;
 }
 
-.playPause img {
-    width: 2.5rem;
+.restart img {
+    transition: all 0.3s ease;
+    scale: 0;
+    width: 10rem;
+}
+
+.restart img:hover {
+    cursor: pointer;
+}
+
+.restart img:active {
+    scale: 0.9;
 }
