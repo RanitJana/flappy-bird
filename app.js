@@ -124,26 +124,25 @@ function jump(e) {
     //reset accelaration
     accelaration = 1.1;
 
-    requestAnimationFrame(() => {
-        //get and set position of the bird;
-        birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-        diff = birdRestriction((birdTop - deltaY).toFixed());
-        birdBox.style.top = `${diff}px`;
-        initialFallPos = diff;
 
-        //up-down bird animation must be
-        birdBox.style.animation = 'none';
+    //get and set position of the bird;
+    birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
+    diff = birdRestriction((birdTop - deltaY).toFixed());
+    birdBox.style.top = `${diff}px`;
+    initialFallPos = diff;
 
-        //set transsition speed
-        birdBox.style.transitionProparty = 'all';
-        birdBox.style.transitionDuration = `${transitionDuration}ms`;
-        birdBox.style.transform = `rotate(-25deg)`;
+    //up-down bird animation must be
+    birdBox.style.animation = 'none';
 
-        //set timimg for fall the bird
-        callFallSetTimeOut = setTimeout(() => {
-            fall(e);
-        }, transitionDuration);
-    })
+    //set transsition speed
+    birdBox.style.transitionProparty = 'all';
+    birdBox.style.transitionDuration = `${transitionDuration}ms`;
+    birdBox.style.transform = `rotate(-25deg)`;
+
+    //set timimg for fall the bird
+    callFallSetTimeOut = setTimeout(() => {
+        fall(e);
+    }, transitionDuration);
 }
 
 //function to apply falling logic for bird
@@ -153,28 +152,27 @@ function fall(e) {
     birdBox.style.transform = `rotate(0deg)`;
 
     //apply fall
-    requestAnimationFrame(() => {
-        fallSetIntervalRef = setInterval(() => {
 
-            birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-            diff = birdRestriction((birdTop + deltaY).toFixed() * accelaration);
-            birdBox.style.top = `${diff}px`;
+    fallSetIntervalRef = setInterval(() => {
 
-            if (diff - initialFallPos >= 200) {
-                birdBox.style.transform = `rotate(45deg)`;
-            }
-            else if (diff - initialFallPos >= 100) {
-                birdBox.style.transform = `rotate(25deg)`;
-            }
+        birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
+        diff = birdRestriction((birdTop + deltaY).toFixed() * accelaration);
+        birdBox.style.top = `${diff}px`;
 
-            accelaration += 0.01;
+        if (diff - initialFallPos >= 200) {
+            birdBox.style.transform = `rotate(45deg)`;
+        }
+        else if (diff - initialFallPos >= 100) {
+            birdBox.style.transform = `rotate(25deg)`;
+        }
 
-            if (isGameOver()) {
-                return;
-            }
+        accelaration += 0.01;
 
-        }, 100);
-    })
+        if (isGameOver()) {
+            return;
+        }
+
+    }, 100);
 }
 
 document.addEventListener('keydown', e => {
@@ -188,7 +186,7 @@ document.addEventListener('click', jump);
 let object = document.querySelector('.object');
 let shouldAppend = true;
 
-let objecComeMax = 4000, objecComeMin = 2000;
+let objecComeMax = 4000, objecComeMin = 3000;
 
 let objectAdd = 0;
 let newObjRef;
@@ -197,42 +195,40 @@ let comeObjRef;
 
 //interval to apply object add and coming logic
 
-requestAnimationFrame(() => {
+comeObjRef = setInterval(() => {
 
-    comeObjRef = setInterval(() => {
+    if (isGameOver()) {
+        return;
+    }
 
-        if (isGameOver()) {
-            return;
-        }
-
-        objectAdd = Math.floor((Math.random() * (objecComeMax - objecComeMin + 1)) + objecComeMin);
-        if (shouldAppend) {
-            let newNode = document.createElement('div');
-            let upperBound = playSection.clientHeight / 3;
-            let lowerBound = -upperBound;
-            let translateY = Math.floor((Math.random() * (upperBound - lowerBound + 1)) + lowerBound);
-            newNode.classList.add('objChild');
-            newNode.innerHTML =
-                ` 
+    objectAdd = Math.floor((Math.random() * (objecComeMax - objecComeMin + 1)) + objecComeMin);
+    if (shouldAppend) {
+        let newNode = document.createElement('div');
+        let upperBound = playSection.clientHeight / 4;
+        let lowerBound = -upperBound;
+        let translateY = Math.floor((Math.random() * (upperBound - lowerBound + 1)) + lowerBound);
+        newNode.classList.add('objChild');
+        newNode.innerHTML =
+            ` 
         <img src="./images/pipe.png" alt="pipe" decoding="async" loading="lazy" class="topPipe">
         <img src="./images/pipe.png" alt="pipe" decoding="async" loading="lazy" class="bottomPipe">
         `;
-            shouldAppend = false;
-            newObjRef = setTimeout(() => {
-                newNode.style.setProperty('--translateY', `${translateY}px`);
-                object.appendChild(newNode);
-                shouldAppend = true;
-            }, objectAdd);
+        shouldAppend = false;
+        newObjRef = setTimeout(() => {
+            newNode.style.setProperty('--translateY', `${translateY}px`);
+            object.appendChild(newNode);
+            shouldAppend = true;
+        }, objectAdd);
+    }
+    try {
+        let firstChild = object.children[0];
+        if ((firstChild.getBoundingClientRect().right) - (firstChild.clientWidth / 3) < playSection.getBoundingClientRect().left) {
+            object.removeChild(firstChild);
         }
-        try {
-            let firstChild = object.children[0];
-            if ((firstChild.getBoundingClientRect().right) - (firstChild.clientWidth / 3) < playSection.getBoundingClientRect().left) {
-                object.removeChild(firstChild);
-            }
-        }
-        catch (err) { }
-    }, 100);
-})
+    }
+    catch (err) { }
+}, 100);
+
 
 // invokeObjects();
 //<==============================================pause====================================>
