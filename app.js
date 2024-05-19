@@ -100,7 +100,7 @@ function isGameOver() {
 
 //<===========================================Jump and fall bird logic=============================================>
 
-let deltaY = 30, accelaration = 1.1, birdTop, diff;
+let deltaY = 30, accelaration = 1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 
@@ -124,7 +124,7 @@ function jump(e) {
         clearTimeout(callFallSetTimeOut);
 
         //reset accelaration
-        accelaration = 1.1;
+        accelaration = 1;
 
 
         //get and set position of the bird;
@@ -159,7 +159,7 @@ function fall(e) {
     fallSetIntervalRef = setInterval(() => {
 
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-        diff = birdRestriction((birdTop + deltaY).toFixed() * accelaration);
+        diff = birdRestriction((birdTop + deltaY + 10).toFixed() * accelaration);
         birdBox.style.top = `${diff}px`;
 
         if (diff - initialFallPos >= 200) {
@@ -168,9 +168,7 @@ function fall(e) {
         else if (diff - initialFallPos >= 100) {
             birdBox.style.transform = `rotate(25deg)`;
         }
-
-        accelaration += 0.001;
-
+        accelaration += 0.01;
         if (isGameOver()) {
             return;
         }
