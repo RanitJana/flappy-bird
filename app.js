@@ -8,6 +8,8 @@ let birdPos = [birdBox.style.top, birdBox.style.left];
 let groundContainer = document.querySelector('.groundContainer');
 let wingPos = ['left', 'center', 'right'];
 let wingIdx = 1;
+let message = document.querySelector('.message img');
+let name = document.querySelector('.name');
 
 let wingFlapSetIntervalRef = setInterval(() => {
     birdBox.style.backgroundPosition = `${wingPos[wingIdx = (wingIdx + 1) % wingPos.length]}`;
@@ -57,7 +59,9 @@ function isOverlapping(element1, element2) {
 
 function stopEverything() {
     gameOver = true;
-    restart.style.scale = '1';
+    restart.forEach(val => {
+        val.style.scale = '1';
+    })
     clearInterval(fallSetIntervalRef);
     clearTimeout(jumpRef);
     clearTimeout(callFallSetTimeOut);
@@ -112,10 +116,11 @@ function isGameOver() {
 
 //<===========================================Jump and fall bird logic=============================================>
 
-let deltaY = 30, accelaration = 1, birdTop, diff;
+let deltaY = 40, accelaration = 1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 let initialFallPos, jumpRef;
+let score = document.querySelector('.score');
 
 //function to keep bird in the play window
 function birdRestriction(diff) {
@@ -134,7 +139,12 @@ function birdRestriction(diff) {
 function jump(e) {
     if (!isGameStarted) {
         isGameStarted = true;
+        message.style.scale = '0';
+        message.style.opacity = '0';
+        score.style.display = 'flex';
+        name.style.display = 'none';
         invokeObjects();
+
     }
     if (gameOver) return;
     //clear previous pending tasks
@@ -177,7 +187,7 @@ function fall(e) {
 
     fallSetIntervalRef = setInterval(() => {
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-        diff = birdRestriction((birdTop + deltaY).toFixed() * accelaration);
+        diff = birdRestriction((birdTop + 30).toFixed() * accelaration);
 
         if (diff - initialFallPos >= 200) {
             birdBox.style.transform = `rotate(45deg)`;
@@ -266,24 +276,27 @@ function invokeObjects() {
 // invokeObjects();
 //<==============================================pause====================================>
 
-
-let restart = document.querySelector('.restart img');
-
-restart.addEventListener('click', e => {
+function playAgain(e) {
     e.preventDefault();
     e.stopPropagation();
     gameOver = false;
     isGameStarted = false;
     currScore.innerHTML = '0';
     object.innerHTML = '';
+    message.style.scale = '1';
+    message.style.opacity = '1';
+    score.style.display = 'none';
+    name.style.display = 'block';
 
     birdBox.style.backgroundPosition = 'center';
-    birdBox.style.top = `${playSection.clientHeight / 2}px`;
+    birdBox.style.top = `${document.querySelector('main').clientHeight / 2}px`;
     birdBox.style.left = birdPos[1];
     birdBox.style.animation = 'upDown 800ms ease-in-out infinite';
     birdBox.style.filter = '';
 
-    restart.style.scale = '0';
+    restart.forEach(val => {
+        val.style.scale = '0';
+    })
     document.querySelectorAll('*').forEach(element => {
         element.style.animationPlayState = 'running';
     });
@@ -294,5 +307,11 @@ restart.addEventListener('click', e => {
 
     shouldAppend = true;
     firstObj = true;
+}
 
-}, false)
+let restart = document.querySelectorAll('.restart img');
+document.addEventListener('keydown', e => {
+    console.log(e);
+    if (gameOver && e.keyCode == 13) playAgain(e);
+}, false);
+restart[1].addEventListener('click', playAgain, false)

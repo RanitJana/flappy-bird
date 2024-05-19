@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
@@ -24,17 +24,43 @@ main {
     background-color: #70C5CD;
 }
 
+.name{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,100%);
+    z-index: 15;
+}
+.name img{
+    width: 10rem;
+}
+
 .score {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     z-index: 10;
     position: absolute;
     padding: 1rem;
     top: 0;
     left: 0;
     font-weight: bolder;
-    font-size: larger;
     text-transform: uppercase;
     color: rgb(255, 255, 255);
-    text-shadow: -1px 1px black;
+    text-shadow: 0px 2px black,
+        -2px 0px black;
+    letter-spacing: 0.1rem;
+    display: none;
+}
+
+#currScore {
+    font-size: 3rem;
+}
+
+#maxScore {
+    margin-top: -0.3rem;
 }
 
 .playsection {
@@ -159,15 +185,24 @@ main {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -80%);
     width: 10rem;
     z-index: 10;
 }
-
+.restart img:first-child{
+    width: 15rem;
+    margin: 2rem;
+}
 .restart img {
-    transition: all 0.3s ease;
+    transition: scale 0.3s ease;
     scale: 0;
-    width: 10rem;
+}
+.restart img:last-child{
+    width: 6rem;
 }
 
 .restart img:hover {
@@ -176,4 +211,15 @@ main {
 
 .restart img:active {
     scale: 0.9;
+}
+
+.message{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.message img{
+    width: 16rem;
+    transition: all 0.3s ease;
 }
