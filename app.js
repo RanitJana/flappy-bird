@@ -59,6 +59,7 @@ function isOverlapping(element1, element2) {
 
 function stopEverything() {
     gameOver = true;
+    clearTimeout(jumpRef);
     clearTimeout(callFallSetTimeOut);
     clearInterval(fallSetIntervalRef);
     clearInterval(wingFlapSetIntervalRef);
@@ -103,7 +104,7 @@ let deltaY = 30, accelaration = 1.1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 
-let initialFallPos;
+let initialFallPos, jumpRef;
 
 //function to keep bird in the play window
 function birdRestriction(diff) {
@@ -117,32 +118,34 @@ function birdRestriction(diff) {
 function jump(e) {
     if (gameOver) return;
     //clear previous pending tasks
+    jumpRef = setTimeout(() => {
 
-    clearInterval(fallSetIntervalRef);
-    clearTimeout(callFallSetTimeOut);
+        clearInterval(fallSetIntervalRef);
+        clearTimeout(callFallSetTimeOut);
 
-    //reset accelaration
-    accelaration = 1.1;
+        //reset accelaration
+        accelaration = 1.1;
 
 
-    //get and set position of the bird;
-    birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-    diff = birdRestriction((birdTop - deltaY).toFixed());
-    birdBox.style.top = `${diff}px`;
-    initialFallPos = diff;
+        //get and set position of the bird;
+        birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
+        diff = birdRestriction((birdTop - deltaY).toFixed());
+        birdBox.style.top = `${diff}px`;
+        initialFallPos = diff;
 
-    //up-down bird animation must be
-    birdBox.style.animation = 'none';
+        //up-down bird animation must be
+        birdBox.style.animation = 'none';
 
-    //set transsition speed
-    birdBox.style.transitionProparty = 'all';
-    birdBox.style.transitionDuration = `${transitionDuration}ms`;
-    birdBox.style.transform = `rotate(-25deg)`;
+        //set transsition speed
+        birdBox.style.transitionProparty = 'all';
+        birdBox.style.transitionDuration = `${transitionDuration}ms`;
+        birdBox.style.transform = `rotate(-25deg)`;
 
-    //set timimg for fall the bird
-    callFallSetTimeOut = setTimeout(() => {
-        fall(e);
-    }, transitionDuration);
+        //set timimg for fall the bird
+        callFallSetTimeOut = setTimeout(() => {
+            fall(e);
+        }, transitionDuration);
+    }, 4)
 }
 
 //function to apply falling logic for bird
