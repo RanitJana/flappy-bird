@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+main {
+    position: relative;
+    max-width: 450px;
+    width: 100%;
+    max-height: 640px;
+    height: 100%;
+    background-color: skyblue;
+}
+
+.score {
+    z-index: 10;
+    position: absolute;
+    padding: 1rem;
+    top: 0;
+    left: 0;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: -1px 1px black;
+}
+
+.playsection {
+    overflow: hidden;
+    position: relative;
+    height: 90%;
+    max-height: 640px;
+    width: 100%;
+}
+
+.playsection img {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 640px;
+}
+
+.ground {
+    height: 10%;
+    min-height: 64px;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+}
+
+.groundContainer {
+    background: url('./images/ground.png');
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+    animation: groundMove 7s linear infinite;
+}
+
+@keyframes groundMove {
+    0% {
+        background-position-x: 100%;
+    }
+
+    100% {
+        background-position-x: -100%;
+    }
+}
+
+.bird {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-100%);
+    height: 2rem;
+    aspect-ratio: 92/64;
+    border-radius: 50% 50% 40% 50%;
+    background: url('./images/bird.png') no-repeat center;
+    background-size: cover;
+    animation: upDown 800ms ease-in-out infinite;
+
+    transition-property: top;
+    transition-timing-function: ease-out;
+}
+
+@keyframes upDown {
+    0% {
+        transform: translateY(-30%);
+    }
+
+    50% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-30%);
+    }
+}
+
+.object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.objChild {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: fit-content;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    --translateY: -50%;
+    transform: translateX(100%) translateY(var(--translateY));
+    animation: pipeMove 7.3s infinite linear;
+}
+
+.objChild img:first-child {
+    transform: rotate(180deg);
+    margin-bottom: 8rem;
+}
+
+.objChild img {
+    width: 80px;
+}
+
+
+@keyframes pipeMove {
+    0% {
+        transform: translateX(100%) translateY(var(--translateY));
+    }
+
+    100% {
+        transform: translateX(-100%) translateY(var(--translateY));
+    }
+}
+
+.playPause {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    width: 5rem;
+    z-index: 10;
+}
+
+.playPause img {
+    width: 2.5rem;
+}
