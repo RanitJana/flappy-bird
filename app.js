@@ -1,3 +1,8 @@
+//<===============================audio====================>
+let scorePointSound = document.querySelector('.point');
+let deadSound = document.querySelector('.dead');
+let flapSound = document.querySelector('.flap');
+let fallSound = document.querySelector('.fall');
 //<=====================================wing flapping logic=====================================>
 
 let gameOver = false;
@@ -29,6 +34,7 @@ else {
 
 //function to increase score
 function updateScore() {
+    scorePointSound.play();
     currScore.textContent = Number(currScore.textContent) + 1;
     maxScore.textContent = Math.max(Number(maxScore.innerHTML), Number(currScore.textContent));
     localStorage.setItem('score', maxScore.textContent);
@@ -59,6 +65,8 @@ function isOverlapping(element1, element2) {
 
 function stopEverything() {
     gameOver = true;
+
+    deadSound.play();
     restart.forEach(val => {
         val.style.scale = '1';
     })
@@ -147,9 +155,13 @@ function jump(e) {
 
     }
     if (gameOver) return;
-    //clear previous pending tasks
+    fallSound.pause();
+    flapSound.pause();
+    flapSound.currentTime = 0;
+    flapSound.play();
     jumpRef = setTimeout(() => {
 
+        //clear previous pending tasks
         clearInterval(fallSetIntervalRef);
         clearTimeout(callFallSetTimeOut);
 
@@ -186,6 +198,7 @@ function fall(e) {
     //apply fall
 
     fallSetIntervalRef = setInterval(() => {
+        fallSound.play();
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
         diff = birdRestriction((birdTop + 30).toFixed() * accelaration);
 
@@ -236,7 +249,6 @@ function invokeObjects() {
         if (isGameOver()) {
             return;
         }
-        console.log('hi');
 
         if (firstObj) {
             firstObj = false;
