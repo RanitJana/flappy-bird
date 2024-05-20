@@ -2,7 +2,7 @@
 let scorePointSound = document.querySelector('.point');
 let deadSound = document.querySelector('.dead');
 let flapSound = document.querySelector('.flap');
-let fallSound = document.querySelector('.fall');
+// // let fallSound = document.querySelector('.fall');
 //<=====================================wing flapping logic=====================================>
 
 let gameOver = false;
@@ -155,7 +155,7 @@ function jump(e) {
 
     }
     if (gameOver) return;
-    fallSound.pause();
+    // fallSound.pause();
     flapSound.pause();
     flapSound.currentTime = 0;
     flapSound.play();
@@ -198,7 +198,7 @@ function fall(e) {
     //apply fall
 
     fallSetIntervalRef = setInterval(() => {
-        fallSound.play();
+        // fallSound.play();
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
         diff = birdRestriction((birdTop + 30).toFixed() * accelaration);
 
