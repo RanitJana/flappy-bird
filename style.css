@@ -167,7 +167,11 @@ main {
 
 .objChild img:first-child {
     transform: rotate(180deg);
-    margin-bottom: 9rem;
+    margin-bottom: 6rem;
+}
+
+.objChild img:last-child {
+    margin-top: 6rem;
 }
 
 .objChild img {

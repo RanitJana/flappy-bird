@@ -124,7 +124,7 @@ function isGameOver() {
 
 //<===========================================Jump and fall bird logic=============================================>
 
-let deltaY = 40, accelaration = 1, birdTop, diff;
+let deltaY = 50, accelaration = 1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 let initialFallPos, jumpRef;
@@ -208,9 +208,7 @@ function fall(e) {
         else if (diff - initialFallPos >= 100) {
             birdBox.style.transform = `rotate(25deg)`;
         }
-        if (accelaration < 1.5) {
-            accelaration += 0.001;
-        }
+        accelaration += 0.01;
 
         if (isGameOver()) {
             return;
@@ -235,7 +233,7 @@ let object = document.querySelector('.object');
 let shouldAppend = true;
 
 let firstObj = true;
-let objecComeMax = 4000, objecComeMin = 3000;
+let objecComeMax = 2000, objecComeMin = 1700;
 
 let objectAdd = 0;
 let newObjRef;
