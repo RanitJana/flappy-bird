@@ -94,7 +94,7 @@ main {
     background-size: contain;
     height: 100%;
     width: 100%;
-    animation: groundMove 7s linear infinite;
+    animation: groundMove 6s linear infinite;
 }
 
 @keyframes groundMove {
@@ -115,7 +115,7 @@ main {
     height: 2rem;
     z-index: 5;
     aspect-ratio: 92/64;
-    border-radius: 50% 50% 40% 50%;
+    /* border-radius: 50% 50% 40% 50%; */
     background: url('./images/bird.png') no-repeat center;
     /* clip-path: polygon(4% 4%, 94% 4%, 4% 94%, 94% 94%); */
     background-size: cover;
@@ -123,6 +123,20 @@ main {
 
     transition-property: top;
     transition-timing-function: ease-out;
+}
+
+.birdInner {
+    height: 1.2rem;
+    width: 2rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.birdInner:first-child {
+    height: 2rem;
+    width: 1rem;
 }
 
 @keyframes upDown {
@@ -162,7 +176,7 @@ main {
     justify-content: center;
     --translateY: -50%;
     transform: translateX(100%) translateY(var(--translateY));
-    animation: pipeMove 7.3s infinite linear;
+    animation: pipeMove 6.3s infinite linear;
 }
 
 .objChild img:first-child {

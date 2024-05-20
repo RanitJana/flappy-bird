@@ -9,6 +9,7 @@ let gameOver = false;
 let isGameStarted = false;
 
 let birdBox = document.querySelector('.bird');
+let birdInnerBox = document.querySelectorAll('.birdInner');
 let birdPos = [birdBox.style.top, birdBox.style.left];
 let groundContainer = document.querySelector('.groundContainer');
 let wingPos = ['left', 'center', 'right'];
@@ -70,13 +71,6 @@ function stopEverything() {
     restart.forEach(val => {
         val.style.scale = '1';
     })
-    clearInterval(fallSetIntervalRef);
-    clearTimeout(jumpRef);
-    clearTimeout(callFallSetTimeOut);
-    clearInterval(wingFlapSetIntervalRef);
-    clearInterval(comeObjRef);
-    clearTimeout(newObjRef);
-
     birdBox.style.backgroundPosition = 'center';
     document.querySelectorAll('*').forEach(element => {
         element.style.animationPlayState = 'paused';
@@ -87,38 +81,46 @@ function stopEverything() {
 let playSection = document.querySelector('.playsection');
 let playSectionIMG = document.querySelector('.playsection img');
 function isGameOver() {
-    if (birdBox.getBoundingClientRect().bottom >= groundContainer.getBoundingClientRect().top) {
-        stopEverything();
-        birdBox.style.top = `${playSection.clientHeight - birdBox.clientHeight}px`;
-        birdBox.style.transform = 'rotate(0deg)';
-        return true;
-    }
-    document.querySelectorAll('.topPipe').forEach((val, idx) => {
-        if (isOverlapping(val, birdBox)) {
+    birdInnerBox.forEach(birdBox => {
+        if (birdBox.getBoundingClientRect().bottom >= groundContainer.getBoundingClientRect().top) {
+            clearInterval(fallSetIntervalRef);
+            clearTimeout(jumpRef);
+            clearTimeout(callFallSetTimeOut);
+            clearInterval(wingFlapSetIntervalRef);
+            clearInterval(comeObjRef);
+            clearTimeout(newObjRef);
             stopEverything();
-            if (birdBox.getBoundingClientRect().right - birdBox.clientWidth / 2 <= val.getBoundingClientRect().left) {
-                birdBox.style.top = `${groundContainer.getBoundingClientRect().top - birdBox.clientHeight}px`;
-            }
-            else if (birdBox.getBoundingClientRect().right - birdBox.clientWidth / 2 > val.getBoundingClientRect().left) {
-                birdBox.style.top = `${document.querySelectorAll('.bottomPipe')[idx].getBoundingClientRect().top - birdBox.clientHeight}px`;
-            }
             return true;
         }
-        checkObjectPass(val);
-    });
-    document.querySelectorAll('.bottomPipe').forEach(val => {
-        if (isOverlapping(val, birdBox)) {
-            stopEverything();
-            if (birdBox.getBoundingClientRect().right - birdBox.clientWidth / 2 > val.getBoundingClientRect().left) {
-                birdBox.style.top = `${val.getBoundingClientRect().top - birdBox.clientHeight}px`;
+        document.querySelectorAll('.topPipe').forEach((val, idx) => {
+            if (isOverlapping(val, birdBox)) {
+
+                //below is not written in the function for time span
+                clearInterval(fallSetIntervalRef);
+                clearTimeout(jumpRef);
+                clearTimeout(callFallSetTimeOut);
+                clearInterval(wingFlapSetIntervalRef);
+                clearInterval(comeObjRef);
+                clearTimeout(newObjRef);
+                stopEverything();
+                return true;
             }
-            else if (birdBox.getBoundingClientRect().right - birdBox.clientWidth / 2 <= val.getBoundingClientRect().left) {
-                birdBox.style.top = `${groundContainer.getBoundingClientRect().top - birdBox.clientHeight}px`;
+            checkObjectPass(val);
+        });
+        document.querySelectorAll('.bottomPipe').forEach(val => {
+            if (isOverlapping(val, birdBox)) {
+                clearInterval(fallSetIntervalRef);
+                clearTimeout(jumpRef);
+                clearTimeout(callFallSetTimeOut);
+                clearInterval(wingFlapSetIntervalRef);
+                clearInterval(comeObjRef);
+                clearTimeout(newObjRef);
+                stopEverything();
+                return true;
             }
-            return true;
-        }
-        checkObjectPass(val);
-    });
+            checkObjectPass(val);
+        });
+    })
     return false;
 }
 
