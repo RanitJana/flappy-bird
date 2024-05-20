@@ -125,7 +125,7 @@ function isGameOver() {
 
 //<===========================================Jump and fall bird logic=============================================>
 
-let deltaY = 50, accelaration = 1, birdTop, diff;
+let deltaY = 30, accelaration = 1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 let initialFallPos, jumpRef;
@@ -156,8 +156,7 @@ function jump(e) {
 
     }
     if (gameOver) return;
-    // fallSound.pause();
-    flapSound.pause();
+
     flapSound.currentTime = 0;
     flapSound.play();
     jumpRef = setTimeout(() => {
@@ -171,7 +170,7 @@ function jump(e) {
 
         //get and set position of the bird;
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-        diff = birdRestriction((birdTop - deltaY).toFixed());
+        diff = birdRestriction((birdTop - deltaY).toFixed()) * 0.9;
         birdBox.style.top = `${diff}px`;
         initialFallPos = diff;
 
@@ -211,7 +210,7 @@ function fall(e) {
         else if (diff - initialFallPos >= 100) {
             birdBox.style.transform = `rotate(25deg)`;
         }
-        if (accelaration < 1.2) accelaration += 0.05;
+        if (accelaration < 1.15) accelaration += 0.05;
         birdBox.style.top = `${diff}px`;
     }, 100);
 }
@@ -326,4 +325,16 @@ let restart = document.querySelectorAll('.restart img');
 document.addEventListener('keydown', e => {
     if (gameOver && e.keyCode == 13) playAgain(e);
 }, false);
-restart[1].addEventListener('click', playAgain, false)
+restart[1].addEventListener('click', playAgain, false);
+
+
+//<==============================bg change ====================================>
+let bgImg = document.querySelectorAll('.playsection img')[1];
+setInterval(() => {
+    if (window.getComputedStyle(bgImg).opacity == '1') {
+        bgImg.style.opacity = '0';
+    }
+    else {
+        bgImg.style.opacity = '1';
+    }
+}, 10000);
