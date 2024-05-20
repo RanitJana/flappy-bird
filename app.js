@@ -222,7 +222,6 @@ document.addEventListener('keydown', e => {
         jump(e);
     }
 }, false);
-document.addEventListener('click', jump);
 document.addEventListener('touchstart', jump);
 
 //<================================================= Object logic ==========================================================>
