@@ -81,8 +81,8 @@ function stopEverything() {
 let playSection = document.querySelector('.playsection');
 let playSectionIMG = document.querySelector('.playsection img');
 function isGameOver() {
-    birdInnerBox.forEach(birdBox => {
-        if (birdBox.getBoundingClientRect().bottom >= groundContainer.getBoundingClientRect().top) {
+    birdInnerBox.forEach(childTemp => {
+        if (childTemp.getBoundingClientRect().bottom >= groundContainer.getBoundingClientRect().top) {
             clearInterval(fallSetIntervalRef);
             clearTimeout(jumpRef);
             clearTimeout(callFallSetTimeOut);
@@ -93,8 +93,7 @@ function isGameOver() {
             return true;
         }
         document.querySelectorAll('.topPipe').forEach((val, idx) => {
-            if (isOverlapping(val, birdBox)) {
-
+            if (isOverlapping(val, childTemp)) {
                 //below is not written in the function for time span
                 clearInterval(fallSetIntervalRef);
                 clearTimeout(jumpRef);
@@ -108,7 +107,7 @@ function isGameOver() {
             checkObjectPass(val);
         });
         document.querySelectorAll('.bottomPipe').forEach(val => {
-            if (isOverlapping(val, birdBox)) {
+            if (isOverlapping(val, childTemp)) {
                 clearInterval(fallSetIntervalRef);
                 clearTimeout(jumpRef);
                 clearTimeout(callFallSetTimeOut);
@@ -136,7 +135,7 @@ let score = document.querySelector('.score');
 function birdRestriction(diff) {
     document.querySelectorAll('.bottomPipe').forEach(val => {
         if (isOverlapping(val, birdBox)) {
-            return val.getBoundingClientRect().top() - birdBox.clientHeight;
+            return val.getBoundingClientRect().top - birdBox.clientHeight;
         }
     });
     if (diff <= 10) return 10;
@@ -200,9 +199,11 @@ function fall(e) {
     //apply fall
 
     fallSetIntervalRef = setInterval(() => {
-        // fallSound.play();
         birdTop = Number((window.getComputedStyle(birdBox).top).replace('px', ''));
-        diff = birdRestriction((birdTop + 30).toFixed() * accelaration);
+        diff = Math.min(birdRestriction((birdTop + 30).toFixed() * accelaration), playSection.clientHeight - birdBox.clientHeight);
+        if (isGameOver()) {
+            return;
+        }
 
         if (diff - initialFallPos >= 200) {
             birdBox.style.transform = `rotate(45deg)`;
@@ -210,13 +211,9 @@ function fall(e) {
         else if (diff - initialFallPos >= 100) {
             birdBox.style.transform = `rotate(25deg)`;
         }
-        accelaration += 0.01;
-
-        if (isGameOver()) {
-            return;
-        }
+        if (accelaration < 1.2) accelaration += 0.05;
         birdBox.style.top = `${diff}px`;
-    }, 80);
+    }, 100);
 }
 
 document.addEventListener('keydown', e => {
@@ -269,6 +266,10 @@ function invokeObjects() {
         `;
             shouldAppend = false;
             newObjRef = setTimeout(() => {
+                if (gameOver) {
+                    clearTimeout(newObjRef);
+                    return;
+                }
                 newNode.style.setProperty('--translateY', `${translateY}px`);
                 object.appendChild(newNode);
                 shouldAppend = true;
@@ -323,7 +324,6 @@ function playAgain(e) {
 
 let restart = document.querySelectorAll('.restart img');
 document.addEventListener('keydown', e => {
-    console.log(e);
     if (gameOver && e.keyCode == 13) playAgain(e);
 }, false);
 restart[1].addEventListener('click', playAgain, false)
