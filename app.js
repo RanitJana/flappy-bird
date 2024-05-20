@@ -196,7 +196,7 @@ function fall(e) {
             birdBox.style.transform = `rotate(25deg)`;
         }
         if (accelaration < 1.5) {
-            accelaration += 0.01;
+            accelaration += 0.001;
         }
 
         if (isGameOver()) {
