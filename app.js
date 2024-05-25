@@ -16,6 +16,7 @@ let wingPos = ['left', 'center', 'right'];
 let wingIdx = 1;
 let message = document.querySelector('.message img');
 let name = document.querySelector('.name');
+let bgInterval;
 
 let wingFlapSetIntervalRef = setInterval(() => {
     birdBox.style.backgroundPosition = `${wingPos[wingIdx = (wingIdx + 1) % wingPos.length]}`;
@@ -71,6 +72,7 @@ function stopEverything() {
     restart.forEach(val => {
         val.style.scale = '1';
     })
+    clearInterval(bgInterval);
     birdBox.style.backgroundPosition = 'center';
     document.querySelectorAll('*').forEach(element => {
         element.style.animationPlayState = 'paused';
@@ -290,6 +292,7 @@ function invokeObjects() {
 function playAgain(e) {
     e.preventDefault();
     e.stopPropagation();
+    bgChange();
     gameOver = false;
     isGameStarted = false;
     currScore.innerHTML = '0';
@@ -329,11 +332,14 @@ restart[1].addEventListener('click', playAgain, false);
 
 //<==============================bg change ====================================>
 let bgImg = document.querySelectorAll('.playsection img')[1];
-setInterval(() => {
-    if (window.getComputedStyle(bgImg).opacity == '1') {
-        bgImg.style.opacity = '0';
-    }
-    else {
-        bgImg.style.opacity = '1';
-    }
-}, 10000);
+function bgChange() {
+    bgInterval = setInterval(() => {
+        if (window.getComputedStyle(bgImg).opacity == '1') {
+            bgImg.style.opacity = '0';
+        }
+        else {
+            bgImg.style.opacity = '1';
+        }
+    }, 10000);
+}
+bgChange();
