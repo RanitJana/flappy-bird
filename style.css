@@ -39,6 +39,7 @@ main {
 }
 
 .score {
+    display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 10;
@@ -57,7 +58,22 @@ main {
         2px -2px rgb(85, 48, 0),
         -2px -2px rgb(85, 48, 0), 2px 0 rgb(85, 48, 0);
     text-shadow: 0 2px rgb(192, 81, 5);
-    display: none;
+    scale: 0;
+    transition: all 0.3s ease;
+}
+
+.life {
+    scale: 0;
+    width: fit-content;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.life img {
+    width: 1.4rem;
 }
 
 .playsection {
@@ -120,6 +136,16 @@ main {
 
     transition-property: top;
     transition-timing-function: ease-out;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 .birdInner {

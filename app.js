@@ -21,7 +21,40 @@ let bgInterval;
 let wingFlapSetIntervalRef = setInterval(() => {
     birdBox.style.backgroundPosition = `${wingPos[wingIdx = (wingIdx + 1) % wingPos.length]}`;
 }, 100)
+//<===========================================Life count====================================>
+let lifeArray = [];
+let lives = document.querySelectorAll('.life img');
+lives.forEach(val => {
+    lifeArray.push(val);
+})
+let lifeIdx = lifeArray.length, shouldTakeLife = true;
 
+function resetForLife() {
+    deadSound.play();
+    clearInterval(fallSetIntervalRef);
+    clearTimeout(jumpRef);
+    clearTimeout(callFallSetTimeOut);
+    if (shouldTakeLife) lifeIdx--;
+    lifeArray[lifeIdx].style.filter = 'grayscale(100%)';
+    if (lifeIdx <= 0) {
+        return true;
+    }
+    shouldTakeLife = false;
+    clearInterval(takeLifeInterval);
+    takeLifeInterval = setInterval(() => {
+        shouldTakeLife = true;
+    }, 500);
+    object.innerHTML = '';
+    birdBox.style.top = `${document.querySelector('main').clientHeight / 2}px`;
+    birdBox.style.left = birdPos[1];
+    birdBox.style.filter = '';
+    birdBox.style.transform = 'rotate(0deg)';
+    birdBox.style.animation = "blink 0.15s infinite alternate";
+    setTimeout(() => {
+        birdBox.style.animation = "";
+    }, 500);
+    return false;
+}
 //<=========================================== Score ================================>
 
 let maxScore = document.querySelector('#maxScore');
@@ -68,7 +101,6 @@ function isOverlapping(element1, element2) {
 function stopEverything() {
     gameOver = true;
 
-    deadSound.play();
     restart.forEach(val => {
         val.style.scale = '1';
     })
@@ -82,42 +114,39 @@ function stopEverything() {
 
 let playSection = document.querySelector('.playsection');
 let playSectionIMG = document.querySelector('.playsection img');
+let takeLifeInterval;
 function isGameOver() {
     birdInnerBox.forEach(childTemp => {
         if (childTemp.getBoundingClientRect().bottom >= groundContainer.getBoundingClientRect().top) {
-            clearInterval(fallSetIntervalRef);
-            clearTimeout(jumpRef);
-            clearTimeout(callFallSetTimeOut);
-            clearInterval(wingFlapSetIntervalRef);
-            clearInterval(comeObjRef);
-            clearTimeout(newObjRef);
-            stopEverything();
-            return true;
-        }
-        document.querySelectorAll('.topPipe').forEach((val, idx) => {
-            if (isOverlapping(val, childTemp)) {
-                //below is not written in the function for time span
-                clearInterval(fallSetIntervalRef);
-                clearTimeout(jumpRef);
-                clearTimeout(callFallSetTimeOut);
+            if (resetForLife()) {
                 clearInterval(wingFlapSetIntervalRef);
                 clearInterval(comeObjRef);
                 clearTimeout(newObjRef);
                 stopEverything();
                 return true;
             }
+        }
+        document.querySelectorAll('.topPipe').forEach((val, idx) => {
+            if (isOverlapping(val, childTemp)) {
+                if (resetForLife()) {
+                    clearInterval(wingFlapSetIntervalRef);
+                    clearInterval(comeObjRef);
+                    clearTimeout(newObjRef);
+                    stopEverything();
+                    return true;
+                }
+            }
             checkObjectPass(val);
         });
         document.querySelectorAll('.bottomPipe').forEach(val => {
             if (isOverlapping(val, childTemp)) {
-                clearInterval(fallSetIntervalRef);
-                clearTimeout(jumpRef);
-                clearTimeout(callFallSetTimeOut);
-                clearInterval(wingFlapSetIntervalRef);
-                clearInterval(comeObjRef);
-                clearTimeout(newObjRef);
-                stopEverything();
-                return true;
+                if (resetForLife()) {
+                    clearInterval(wingFlapSetIntervalRef);
+                    clearInterval(comeObjRef);
+                    clearTimeout(newObjRef);
+                    stopEverything();
+                    return true;
+                }
             }
             checkObjectPass(val);
         });
@@ -147,17 +176,19 @@ function birdRestriction(diff) {
 }
 
 //function ro apply jump logic for bird
+let livesParent = document.querySelector('.life');
 function jump(e) {
     if (!isGameStarted) {
+        livesParent.style.scale = '1';
         isGameStarted = true;
         message.style.scale = '0';
         message.style.opacity = '0';
-        score.style.display = 'flex';
+        score.style.scale = '1';
         name.style.display = 'none';
         invokeObjects();
 
     }
-    if (gameOver) return;
+    if (gameOver || isGameOver()) return;
 
     flapSound.currentTime = 0;
     flapSound.play();
@@ -218,13 +249,15 @@ function fall(e) {
 }
 
 document.addEventListener('keydown', e => {
-    if (e.key === " ") {
+    if (e.key === " " && shouldTakeLife) {
         e.stopPropagation();
         clearInterval(fallSetIntervalRef);
         jump(e);
     }
 }, false);
-document.addEventListener('touchstart', jump);
+document.addEventListener('touchstart', e => {
+    if (shouldTakeLife) jump(e);
+});
 
 //<================================================= Object logic ==========================================================>
 
@@ -298,8 +331,9 @@ function playAgain(e) {
     currScore.innerHTML = '0';
     object.innerHTML = '';
     message.style.scale = '1';
+    livesParent.style.scale = '0';
     message.style.opacity = '1';
-    score.style.display = 'none';
+    score.style.scale = '0';
     name.style.display = 'block';
 
     birdBox.style.backgroundPosition = 'center';
@@ -317,7 +351,12 @@ function playAgain(e) {
 
     wingFlapSetIntervalRef = setInterval(() => {
         birdBox.style.backgroundPosition = `${wingPos[wingIdx = (wingIdx + 1) % wingPos.length]}`;
-    }, 100)
+    }, 100);
+
+    lives.forEach(val => {
+        val.style.filter = "";
+    })
+    lifeIdx = lifeArray.length;
 
     shouldAppend = true;
     firstObj = true;
