@@ -127,7 +127,7 @@ function isGameOver() {
 
 //<===========================================Jump and fall bird logic=============================================>
 
-let deltaY = 30, accelaration = 1, birdTop, diff;
+let deltaY = 20, accelaration = 1, birdTop, diff;
 let transitionDuration = 200;   //mili-sec
 let fallSetIntervalRef, callFallSetTimeOut;
 let initialFallPos, jumpRef;
