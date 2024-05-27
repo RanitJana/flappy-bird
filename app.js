@@ -1,5 +1,5 @@
 function playOn(birdCurrentImage) {
-
+    let exit = false;
     //<===============================audio====================>
     let scorePointSound = document.querySelector('.point');
     let deadSound = document.querySelector('.dead');
@@ -328,9 +328,6 @@ function playOn(birdCurrentImage) {
     function playAgain(e) {
         e.preventDefault();
         e.stopPropagation();
-        bgChange();
-        gameOver = false;
-        isGameStarted = false;
         currScore.innerHTML = '0';
         object.innerHTML = '';
         message.style.scale = '1';
@@ -352,17 +349,14 @@ function playOn(birdCurrentImage) {
             element.style.animationPlayState = 'running';
         });
 
-        wingFlapSetIntervalRef = setInterval(() => {
-            birdBox.style.backgroundPosition = `${wingPos[wingIdx = (wingIdx + 1) % wingPos.length]}`;
-        }, 100);
-
         lives.forEach(val => {
             val.style.filter = "";
         })
         lifeIdx = lifeArray.length;
 
-        shouldAppend = true;
-        firstObj = true;
+        document.querySelector('.playOn').style.display = 'none';
+        document.querySelector('.menu').style.display = 'flex';
+        exit = true;
     }
 
     let restart = document.querySelectorAll('.restart img');
@@ -370,7 +364,7 @@ function playOn(birdCurrentImage) {
         if (gameOver && e.keyCode == 13) playAgain(e);
     }, false);
     restart[1].addEventListener('click', playAgain, false);
-
+    if (exit) return;
 
     //<==============================bg change ====================================>
     let bgImg = document.querySelectorAll('.playsection img')[1];

@@ -210,7 +210,7 @@ main {
     height: 2rem;
     aspect-ratio: 92/64;
     z-index: 5;
-    background-image: url('./images/goldenBird.png');
+    background-image: url('./images/bird.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
