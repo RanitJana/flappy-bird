@@ -5,24 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Fluppy Bird</title>
+    <title>Flappy Bird</title>
 </head>
 
 <body>
 
     <main>
-        <section class="name">
-            <img src="./images/logo.png" alt="Flappy Bird" decoding="async" loading="eager">
-        </section>
-        <section class="score">
-            <span id="currScore">0</span>
-            <span>Best : <span id="maxScore">0</span></span>
-        </section>
-        <section class="life">
-            <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
-            <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
-            <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
-        </section>
         <section class="playsection">
             <img src="./images/background.png" alt="background" decoding="async" loading="eager">
             <img src="./images/background-night.png" alt="background" decoding="async" loading="lazy">
@@ -30,27 +18,57 @@
         <section class="ground">
             <div class="groundContainer"></div>
         </section>
-        <section class="bird">
-            <div class="birdInner"></div>
-            <div class="birdInner"></div>
+        <div class="name">
+            <img src="./images/logo.png" alt="Flappy Bird" decoding="async" loading="eager">
+        </div>
+
+
+        <section class="menu">
+            <div class="birdContainer">
+                <button class="left"><</button>
+                <div class="birdList">
+                    <div class="birdImg"></div>
+                </div>
+                <button class="right">></button>
+            </div>
+            <div class="start">
+                <img src="./images//start.png" alt="start" loading="eager" decoding="async">
+            </div>
         </section>
-        <section class="object">
-            <!-- <div class="objChild">
+
+
+        <section class="playOn">
+            <div class="score">
+                <span id="currScore">0</span>
+                <span>Best : <span id="maxScore">0</span></span>
+            </div>
+            <div class="life">
+                <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
+                <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
+                <img src="./images/icons8-love-32.png" alt="Life" loading="lazy" decoding="async">
+            </div>
+            <div class="bird">
+                <div class="birdInner"></div>
+                <div class="birdInner"></div>
+            </div>
+            <div class="object">
+                <!-- <div class="objChild">
                 <img src="./images/pipe.png" alt="pipe" decoding="async" loading="lazy">
                 <img src="./images/pipe.png" alt="pipe" decoding="async" loading="lazy">
             </div> -->
+            </div>
+            <div class="restart">
+                <img src="./images/gameover.png" alt="game over" loading="lazy" decoding="async">
+                <img src="./images/restart.png" decoding="async" alt="pause" loading="eager">
+            </div>
+            <div class="message">
+                <img src="./images/message.png" alt="message" loading="eager" decoding="async">
+            </div>
+            <!--Audio-->
+            <audio src="./audio/flappy-bird-hit-sound-101soundboards.mp3" class="dead"></audio>
+            <audio src="./audio/point-101soundboards.mp3" class="point"></audio>
+            <audio src="./audio/flap-101soundboards.mp3" class="flap"></audio>
         </section>
-        <section class="restart">
-            <img src="./images/gameover.png" alt="game over" loading="lazy" decoding="async">
-            <img src="./images/restart.png" decoding="async" alt="pause" loading="eager">
-        </section>
-        <section class="message">
-            <img src="./images/message.png" alt="message" loading="eager" decoding="async">
-        </section>
-        <!--Audio-->
-        <audio src="./audio/flappy-bird-hit-sound-101soundboards.mp3" class="dead"></audio>
-        <audio src="./audio/point-101soundboards.mp3" class="point"></audio>
-        <audio src="./audio/flap-101soundboards.mp3" class="flap"></audio>
     </main>
 
     <script id="script" src="./app.js"></script>

@@ -26,6 +26,88 @@ main {
     background-color: #70C5CD;
 }
 
+.playOn {
+    display: none;
+}
+
+.menu {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-20%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    padding-top: 2rem;
+}
+
+.birdList {
+    animation: upDown 800ms ease-in-out infinite;
+    scale: 1.2;
+}
+
+.birdContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.birdContainer button {
+    height: 100%;
+    aspect-ratio: 1/1;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-transform: uppercase;
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    padding: 0.2rem 0.5rem;
+    background-color: #E86101;
+    border: 0.25rem solid white;
+    box-shadow: 2px 4px rgb(85, 48, 0),
+        -2px 4px rgb(85, 48, 0),
+        2px -2px rgb(85, 48, 0),
+        -2.5px 0px rgb(85, 48, 0),
+        0px 4px rgb(85, 48, 0),
+        0px -2.5px rgb(85, 48, 0),
+        2.5px 0px rgb(85, 48, 0),
+        -2px -2px rgb(85, 48, 0), 2px 0 rgb(85, 48, 0);
+    text-shadow: 0 2px rgb(192, 81, 5);
+    align-self: flex-start;
+}
+
+.birdList .birdImg {
+    display: flex;
+    overflow: hidden;
+    height: 2rem;
+    aspect-ratio: 92/64;
+
+    background-image: url('./images/rainbowBird.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.start img {
+    margin-top: 4rem;
+    width: 8rem;
+}
+
+.start img:hover,
+.birdContainer button:hover {
+    cursor: pointer;
+}
+
+.start img:active,
+.birdContainer button:active {
+    scale: 0.9;
+}
+
 .name {
     position: absolute;
     top: 0;
@@ -126,11 +208,11 @@ main {
     left: 20%;
     transform: translateY(-100%);
     height: 2rem;
-    z-index: 5;
     aspect-ratio: 92/64;
-    /* border-radius: 50% 50% 40% 50%; */
-    background: url('./images/bird.png') no-repeat center;
-    /* clip-path: polygon(4% 4%, 94% 4%, 4% 94%, 94% 94%); */
+    z-index: 5;
+    background-image: url('./images/goldenBird.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     animation: upDown 800ms ease-in-out infinite;
 
@@ -164,15 +246,15 @@ main {
 
 @keyframes upDown {
     0% {
-        transform: translateY(-30%);
+        transform: translateY(-10%);
     }
 
     50% {
-        transform: translateY(0%);
+        transform: translateY(10%);
     }
 
     100% {
-        transform: translateY(-30%);
+        transform: translateY(-10%);
     }
 }
 
