@@ -43,6 +43,20 @@ main {
     padding-top: 2rem;
 }
 
+.hat {
+    width: 100%;
+    height: 120%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(0, -30%);
+    z-index: 10;
+    background: no-repeat center;
+    background-image: url('');
+    background-size: cover;
+    scale: 1.2;
+}
+
 .birdList {
     animation: upDown 800ms ease-in-out infinite;
     scale: 1.2;
@@ -83,29 +97,136 @@ main {
 
 .birdList .birdImg {
     display: flex;
-    overflow: hidden;
     height: 2rem;
     aspect-ratio: 92/64;
 
-    background-image: url('./images/rainbowBird.png');
+    background-image: url('./images/bird/bird.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-.start img {
+.shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 4rem;
-    width: 8rem;
+    height: 2rem;
 }
 
-.start img:hover,
+.hatShop,
+.start,
+.cross,
+.hatList {
+    font-weight: bolder;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    padding: 0.2rem 0.5rem;
+    background-color: #E86101;
+    border: 0.25rem solid white;
+    box-shadow: 2px 4px rgb(85, 48, 0),
+        -2px 4px rgb(85, 48, 0),
+        2px -2px rgb(85, 48, 0),
+        -2px -2px rgb(85, 48, 0), 2px 0 rgb(85, 48, 0);
+}
+
+.hatShop,
+.start {
+    width: fit-content;
+    height: 100%;
+    margin: 0 0.5rem;
+}
+
+.hatShop img {
+    filter: invert(100%);
+    width: 1rem;
+}
+
+.start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.start:hover,
+.hatShop:hover,
+.cross:hover,
+.hatbox:hover,
 .birdContainer button:hover {
     cursor: pointer;
 }
 
-.start img:active,
+.start:active,
+.hatShop:active,
+.cross:active,
+.hatbox:active,
 .birdContainer button:active {
     scale: 0.9;
+}
+
+.hatList {
+    z-index: 20;
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    scale: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hatList .list {
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.hatbox {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    color: rgb(178, 116, 0);
+    height: 5rem;
+    margin: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    border: 0.25rem solid rgb(85, 48, 0);
+    box-shadow: 2px 4px rgb(85, 48, 0),
+        -2px 4px rgb(85, 48, 0),
+        2px -2px rgb(85, 48, 0),
+        -2px -2px rgb(85, 48, 0), 2px 0 rgb(85, 48, 0);
+}
+
+.hatbox:first-child::after {
+    content: "none";
+    display: flex;
+    position: absolute;
+}
+
+.hatbox img {
+    width: 100%;
+}
+
+.cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+    z-index: 25;
 }
 
 .name {

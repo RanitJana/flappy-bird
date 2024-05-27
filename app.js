@@ -382,7 +382,7 @@ function playOn(birdCurrentImage) {
 }
 
 function menu() {
-    let allBirdBgImg = ['./images/bird.png', './images/rainbowBird.png', './images/goldenBird.png', './images/whiteBird.png'];
+    let allBirdBgImg = ['./images/bird/bird.png', './images/bird/rainbowBird.png', './images/bird/goldenBird.png', './images/bird/whiteBird.png'];
     let allBirdBgImgIndex = 0;
     let wingPosMenuBird = ['left', 'center', 'right'];
     let wingIdxMenuBird = 1;
@@ -393,7 +393,7 @@ function menu() {
     setInterval(() => {
         birdImages.style.backgroundPosition = `${wingPosMenuBird[wingIdxMenuBird = (wingIdxMenuBird + 1) % wingPosMenuBird.length]}`;
     }, 100);
-    let start = document.querySelector('.start img');
+    let start = document.querySelector('.start');
 
     let leftBtn = document.querySelector('.birdContainer .left');
     let rightBtn = document.querySelector('.birdContainer .right');
@@ -408,11 +408,38 @@ function menu() {
         birdImages.style.backgroundImage = `url('${allBirdBgImg[allBirdBgImgIndex]}')`;
     });
 
+    //<========================================================hat section=========================================================>
+
+    let hatShop = document.querySelector('.hatShop');
+    let hatList = document.querySelector('.hatList');
+    let hatCross = document.querySelector('.cross');
+    hatShop.addEventListener('click', e => {
+        hatList.style.scale = '1';
+    });
+    hatCross.addEventListener('click', e => {
+        hatList.style.scale = '0';
+    });
+    let hatCurrent = document.querySelectorAll('.hat');
+    let allHats = document.querySelectorAll('.hatbox');
+    allHats.forEach(hats => {
+        hats.addEventListener('click', e => {
+            hatCurrent.forEach(hat => {
+                let hatSrc = hats.childNodes[1].getAttribute('src');
+                hat.style.backgroundImage = `url('${hatSrc}')`;
+            });
+            hatList.style.scale = '0';
+        })
+    })
+
+    //<==========================================================start game===========================================================>
     start.addEventListener('click', e => {
         document.querySelector('.playOn').style.display = 'block';
         document.querySelector('.menu').style.display = 'none';
         //start play
         playOn(allBirdBgImg[allBirdBgImgIndex]);
     });
+
+
+
 }
 menu();
