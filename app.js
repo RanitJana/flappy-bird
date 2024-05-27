@@ -382,7 +382,7 @@ function playOn(birdCurrentImage) {
 }
 
 function menu() {
-    let allBirdBgImg = ['./images/bird/bird.png', './images/bird/rainbowBird.png', './images/bird/goldenBird.png', './images/bird/whiteBird.png','./images/bird/blueBird.png'];
+    let allBirdBgImg = ['./images/bird/bird.png', './images/bird/rainbowBird.png', './images/bird/goldenBird.png', './images/bird/whiteBird.png','./images/bird/blueBird.png','./images/bird/blackBird.png','./images/bird/greenBird.png'];
     let allBirdBgImgIndex = 0;
     let wingPosMenuBird = ['left', 'center', 'right'];
     let wingIdxMenuBird = 1;
