@@ -218,7 +218,7 @@ main {
     height: 90%;
     overflow: auto;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: auto auto auto;
 }
 
 ::-webkit-scrollbar {
@@ -227,6 +227,7 @@ main {
 
 .hatbox,
 .mouthbox {
+    aspect-ratio: 1/1;
     position: relative;
     color: black;
     display: flex;
@@ -512,4 +513,19 @@ main {
 .message img {
     width: 14rem;
     transition: all 0.3s ease;
+}
+
+@media only screen and (max-width:391px) {
+
+    .hatList .list,
+    .mouth-list {
+        grid-template-columns: auto auto;
+        place-items: center;
+    }
+
+    .hatList .list div,
+    .mouth-list div {
+        width: 70%;
+        height: 70%;
+    }
 }
