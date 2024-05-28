@@ -382,7 +382,7 @@ function playOn(birdCurrentImage) {
 }
 
 function menu() {
-    let allBirdBgImg = ['./images/bird/bird.png', './images/bird/rainbowBird.png', './images/bird/goldenBird.png', './images/bird/whiteBird.png','./images/bird/blueBird.png','./images/bird/blackBird.png','./images/bird/greenBird.png'];
+    let allBirdBgImg = ['./images/bird/bird.png', './images/bird/rainbowBird.png', './images/bird/goldenBird.png', './images/bird/whiteBird.png', './images/bird/blueBird.png', './images/bird/blackBird.png', './images/bird/greenBird.png'];
     let allBirdBgImgIndex = 0;
     let wingPosMenuBird = ['left', 'center', 'right'];
     let wingIdxMenuBird = 1;
@@ -428,6 +428,28 @@ function menu() {
                 hat.style.backgroundImage = `url('${hatSrc}')`;
             });
             hatList.style.scale = '0';
+        })
+    })
+    //<========================================================mouth section=========================================================>
+
+    let mouthShop = document.querySelector('.mouthShop');
+    let mouthList = document.querySelector('.mouthList');
+    let mouthCross = document.querySelector('.mouthCross');
+    mouthShop.addEventListener('click', e => {
+        mouthList.style.scale = '1';
+    });
+    mouthCross.addEventListener('click', e => {
+        mouthList.style.scale = '0';
+    });
+    let mouthCurrent = document.querySelectorAll('.mouth');
+    let mouthBox = document.querySelectorAll('.mouthbox');
+    mouthBox.forEach(mouths => {
+        mouths.addEventListener('click', e => {
+            mouthCurrent.forEach(mouth => {
+                let mouthSrc = mouths.childNodes[1].getAttribute('src');
+                mouth.style.backgroundImage = `url('${mouthSrc}')`;
+            });
+            mouthList.style.scale = '0';
         })
     })
 

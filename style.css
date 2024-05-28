@@ -57,6 +57,20 @@ main {
     scale: 1.2;
 }
 
+.mouth {
+    width: 150%;
+    height: 150%;
+    position: absolute;
+    top: 5%;
+    right: -20%;
+    transform: translate(0, -30%);
+    z-index: 10;
+    background: no-repeat center;
+    background-image: url('');
+    background-size: cover;
+    scale: 1.2;
+}
+
 .birdList {
     animation: upDown 800ms ease-in-out infinite;
     scale: 1.2;
@@ -115,9 +129,12 @@ main {
 }
 
 .hatShop,
+.mouthShop,
 .start,
 .cross,
-.hatList {
+.mouthCross,
+.hatList,
+.mouthList {
     font-weight: bolder;
     color: white;
     text-transform: uppercase;
@@ -135,13 +152,15 @@ main {
 }
 
 .hatShop,
+.mouthShop,
 .start {
     width: fit-content;
     height: 100%;
     margin: 0 0.5rem;
 }
 
-.hatShop img {
+.hatShop img,
+.mouthShop img {
     filter: invert(100%);
     width: 1rem;
 }
@@ -155,21 +174,28 @@ main {
 
 .start:hover,
 .hatShop:hover,
+.mouthShop:hover,
 .cross:hover,
+.mouthCross:hover,
 .hatbox:hover,
+.mouthbox:hover,
 .birdContainer button:hover {
     cursor: pointer;
 }
 
 .start:active,
 .hatShop:active,
+.mouthShop:active,
 .cross:active,
+.mouthCross:active,
 .hatbox:active,
+.mouthbox:active,
 .birdContainer button:active {
     scale: 0.9;
 }
 
-.hatList {
+.hatList,
+.mouthList {
     z-index: 20;
     width: 80%;
     height: 80%;
@@ -180,7 +206,8 @@ main {
     transform: translate(-50%, -50%);
 }
 
-.hatList .list {
+.hatList .list,
+.mouth-list {
     width: 100%;
     height: 90%;
     overflow: auto;
@@ -192,7 +219,8 @@ main {
     display: none;
 }
 
-.hatbox {
+.hatbox,
+.mouthbox {
     position: relative;
     color: black;
     display: flex;
@@ -212,17 +240,20 @@ main {
         -2px -2px rgb(85, 48, 0), 2px 0 rgb(85, 48, 0);
 }
 
-.hatbox:first-child::after {
+.hatbox:first-child::after,
+.mouthbox:first-child::after {
     content: "none";
     display: flex;
     position: absolute;
 }
 
-.hatbox img {
+.hatbox img,
+.mouthbox img {
     width: 100%;
 }
 
-.cross {
+.cross,
+.mouthCross {
     position: absolute;
     right: 0;
     top: 0;
