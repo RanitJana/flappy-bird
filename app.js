@@ -424,7 +424,7 @@ function menu() {
     allHats.forEach(hats => {
         hats.addEventListener('click', e => {
             hatCurrent.forEach(hat => {
-                let hatSrc = hats.childNodes[1].getAttribute('src');
+                let hatSrc = hats.childNodes[1].getAttribute('src').replace(' - Copy', '');
                 hat.style.backgroundImage = `url('${hatSrc}')`;
             });
             hatList.style.scale = '0';
@@ -446,7 +446,7 @@ function menu() {
     mouthBox.forEach(mouths => {
         mouths.addEventListener('click', e => {
             mouthCurrent.forEach(mouth => {
-                let mouthSrc = mouths.childNodes[1].getAttribute('src');
+                let mouthSrc = mouths.childNodes[1].getAttribute('src').replace(' - Copy', '');
                 mouth.style.backgroundImage = `url('${mouthSrc}')`;
             });
             mouthList.style.scale = '0';
